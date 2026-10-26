@@ -53,15 +53,15 @@ Use **Export PDF** or **Export JPEG** to save a visual report containing the gra
 
 ### Critical-band behavior
 
-[Describe how quickly masking changed with frequency separation. Compare the width in Hz around each masker and whether the curves appear to broaden at higher center frequencies. Relate the pattern to auditory frequency selectivity and critical-band behavior.]
+In my graph, the probe was [hardest to hear near the masker / not consistently hardest near it]. As I moved the probe farther from the masker, its threshold [usually went down / stayed about the same / changed unevenly]. That pattern [fits / does not clearly fit] the idea of critical bands: nearby frequencies affect overlapping parts of the auditory system, while frequencies farther apart tend to have less effect on each other. The curves looked [wider / narrower / about the same width] in Hz for the higher-frequency maskers, although I only tested a limited number of probe frequencies.
 
 ### Masking asymmetry
 
-[For each masker, compare thresholds below and above the masker center. State whether masking spread farther upward, downward, or appeared approximately symmetric in your data. Refer to the baseline-subtracted chart where available.]
+I compared probe frequencies below and above each masker to see whether the masking spread more in one direction. In my measurements, it seemed [stronger above the masker / stronger below it / roughly similar on both sides]. I noticed this most clearly around the [___ Hz] masker: the threshold at [___ Hz] was [higher / lower] than the threshold at [___ Hz]. The pattern was [clear / not very clear], so I would be careful about drawing a strong conclusion from it.
 
 ### Differences between masker frequencies
 
-[Compare the 500, 1,000, 2,000, and 4,000 Hz conditions. Discuss peak height, curve width, and any irregular or unexpected points.]
+The four masker frequencies did not produce exactly the same curve. The [___ Hz] masker had the [highest thresholds / widest spread], while the [___ Hz] masker looked [___]. Some points did not follow a smooth curve, which could be from normal variation in my answers or from the small number of measurements at each frequency. Overall, the graph gave me a rough comparison of how masking changed with masker frequency.
 
 ### Prediction versus observation
 
@@ -69,7 +69,7 @@ Use **Export PDF** or **Export JPEG** to save a visual report containing the gra
 
 ### Limitations
 
-The app does not measure dB SPL. Headphone frequency response, playback volume, room noise, listener attention, probe and masker interactions, and the limited number of staircase trials can all affect thresholds. The 2-down/1-up estimate targets roughly 71% correct rather than an absolute physiological threshold. Results are a personal demonstration, not a clinical hearing test.
+This experiment has a few limits. My levels are in dBFS, not calibrated dB SPL, so I cannot say what sound pressure level reached my ears. My headphones, volume setting, background noise, and attention could all have affected the results. I also tested only a limited number of probe frequencies, and each threshold came from a short staircase, so the curves are approximate. The 2-down/1-up method estimates a detection point near 71% correct; it is not an exact measure of hearing sensitivity or a hearing test.
 
 ## References for the prediction
 
