@@ -2,7 +2,7 @@
   const STORAGE_KEY = "frequency-masking-lab.measurements.v1";
   const MASKERS = [500, 1000, 2000, 4000];
   const FREQUENCY_RATIOS = [0.5, 0.7, 0.85, 0.95, 1, 1.05, 1.2, 1.5, 2];
-  const COLORS = { 500: "#bb6a43", 1000: "#367966", 2000: "#4e7894", 4000: "#776ba6", baseline: "#929a91" };
+  const COLORS = { 500: "#bb6a43", 1000: "#367966", 2000: "#2b63b8", 4000: "#776ba6", baseline: "#929a91" };
   const MAX_TRIALS = 32;
   const TARGET_REVERSALS = 8;
   const TONE_SECONDS = 0.46;
