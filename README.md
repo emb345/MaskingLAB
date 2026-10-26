@@ -4,10 +4,9 @@ A standalone browser experiment for measuring personal tone-masking curves. The 
 
 ## Run it
 
-Open `index.html` in a current browser, or serve this folder locally:
+Open `index.html` in a current browser. To serve this folder locally, open a terminal in the project folder and run:
 
 ```bash
-cd "frequency-masking-lab"
 python3 -m http.server 8000
 ```
 
@@ -47,3 +46,4 @@ The interface reports relative digital levels in dBFS, not dB SPL. The playback 
 ## Report materials
 
 Use [`submission_notes.md`](submission_notes.md) as a write-up scaffold. It includes an AI prediction made before data collection, selected engineering prompts and responses, the design correction, and fields for your own measurements and interpretation. The app starts with no synthetic or simulated user measurements; fill the report with data you collect.
+
