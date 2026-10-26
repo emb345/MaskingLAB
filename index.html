@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f2ec" />
+    <title>Frequency Masking Lab</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="masthead">
+        <a class="wordmark" href="#top" aria-label="Frequency Masking Lab home"><span class="wordmark__mark">fm</span><span>LISTENING LAB <i>/</i> 01</span></a>
+        <span class="calibration-tag"><span class="dot"></span>Relative level · dBFS</span>
+      </header>
+
+      <main id="top">
+        <section class="intro">
+          <p class="kicker">PSYCHOACOUSTICS · PERSONAL MEASUREMENT</p>
+          <h1>Where does a sound<br /><em>disappear?</em></h1>
+          <div class="intro__bottom">
+            <p>Map how a steady tone masks nearby frequencies. A two-interval listening task finds the probe level you can detect against each masker.</p>
+            <div class="intro__note"><span class="note-icon">↗</span><span>Headphones recommended<br />Keep your device volume comfortable</span></div>
+          </div>
+        </section>
+
+        <div class="workspace">
+          <aside class="setup panel">
+            <div class="panel-heading">
+              <div><p class="kicker">01 / CONFIGURE</p><h2>Set up a run</h2></div>
+              <span class="step-number">A</span>
+            </div>
+
+            <label class="field">
+              <span class="field__label">Masker center frequency</span>
+              <span class="select-wrap"><select id="maskerFrequency" aria-label="Masker center frequency">
+                <option value="500">500 Hz</option><option value="1000" selected>1,000 Hz</option><option value="2000">2,000 Hz</option><option value="4000">4,000 Hz</option>
+              </select><span class="chevron">⌄</span></span>
+            </label>
+
+            <label class="field">
+              <span class="field__top"><span class="field__label">Masker level</span><output id="maskerLevelValue">−24 dBFS</output></span>
+              <input id="maskerLevel" type="range" min="-36" max="-12" value="-24" step="1" />
+              <span class="range-ends"><span>−36</span><span>−12 dBFS</span></span>
+            </label>
+
+            <label class="field">
+              <span class="field__label">Probe frequency</span>
+              <span class="select-wrap"><select id="probeFrequency" aria-label="Probe frequency"></select><span class="chevron">⌄</span></span>
+              <span class="field-hint">Choose a point below, near, or above the masker.</span>
+            </label>
+
+            <label class="field">
+              <span class="field__top"><span class="field__label">Probe starting level</span><output id="probeStartValue">−36 dBFS</output></span>
+              <input id="probeStart" type="range" min="-60" max="-12" value="-36" step="1" />
+              <span class="range-ends"><span>−60</span><span>−12 dBFS</span></span>
+            </label>
+
+            <label class="check-row"><input id="baselineMode" type="checkbox" /><span class="check-ui"></span><span><strong>Measure unmasked baseline</strong><small>Masker off; use the same probe frequency.</small></span></label>
+
+            <button id="startRun" class="button button--primary"><span>Begin threshold run</span><span aria-hidden="true">↗</span></button>
+            <button id="clearData" class="button button--reset" type="button">Reset all data</button>
+            <p class="method-note"><span class="method-note__icon">↕</span><span><strong>Method B · Adaptive staircase</strong><br />2-down / 1-up; step size shrinks after two reversals. Estimate averages the last six of eight.</span></p>
+            <p class="level-note">Playback is not calibrated to dB SPL. dBFS is a digital level reference only; start with your system volume low.</p>
+          </aside>
+
+          <section class="results-column">
+            <section class="run-card panel" aria-live="polite">
+              <div class="run-card__top">
+                <div><p class="kicker">02 / LISTEN</p><h2 id="runTitle">Ready when you are</h2></div>
+                <span id="runStatus" class="status-pill"><span class="status-dot"></span>Setup</span>
+              </div>
+              <div class="trial-layout">
+                <div class="trial-copy">
+                  <p id="trialInstructions" class="trial-instructions">Start a run to hear two short intervals. Choose the interval with the probe, or select No difference if you couldn't tell.</p>
+                  <div class="run-metrics">
+                    <div><span>TRIAL</span><strong id="trialCount">— <small>/ 32</small></strong></div>
+                    <div><span>REVERSALS</span><strong id="reversalCount">0 <small>/ 8</small></strong></div>
+                    <div><span>PROBE LEVEL</span><strong id="currentLevel">—</strong></div>
+                  </div>
+                  <div class="progress-track"><span id="progressBar"></span></div>
+                </div>
+                <div class="response-box">
+                  <div class="interval-dots" aria-hidden="true"><span id="interval1Dot">1</span><i></i><span id="interval2Dot">2</span></div>
+                  <button id="playTrial" class="button button--play" disabled><span class="play-icon">▶</span><span>Play both intervals</span></button>
+                  <div class="choice-row"><button class="choice" data-choice="1" disabled>Interval 1</button><button class="choice" data-choice="2" disabled>Interval 2</button><button class="choice choice--uncertain" data-choice="uncertain" title="Choose this if you couldn't tell which interval contained the probe" disabled>No difference</button></div>
+                  <p id="responseHint" class="response-hint">Keys: 1 or 2 · 3 = No difference</p>
+                </div>
+              </div>
+              <div id="runFeedback" class="run-feedback" role="status">Your responses will adjust the probe level automatically.</div>
+              <div class="run-footer"><span id="runContext">No active run</span><button id="stopRun" class="text-button" disabled>Stop run</button></div>
+            </section>
+
+            <section class="chart-card panel">
+              <div class="chart-heading">
+                <div><p class="kicker">03 / YOUR DATA</p><h2>Masking curves</h2><p class="chart-subtitle">Probe threshold across frequency <span>·</span> lower = quieter probe detected</p></div>
+                <div class="chart-actions"><div class="segmented" role="group" aria-label="Chart measure"><button id="thresholdMode" class="is-active">Threshold</button><button id="maskingMode">Masking amount</button></div></div>
+              </div>
+              <div class="chart-legend" id="chartLegend"></div>
+              <div class="chart-wrap"><svg id="maskingChart" viewBox="0 0 900 400" role="img" aria-label="Masking curve chart"></svg>
+                <div id="chartEmpty" class="chart-empty"><span class="empty-mark">∿</span><strong>Your curves will take shape here</strong><span>Complete runs at different probe frequencies. Repeat for at least three masker centers to compare them.</span></div>
+              </div>
+              <div class="chart-foot"><span><i class="key-line"></i>Measured threshold <i class="key-marker"></i> Masker center <span id="maskerLevelLegend"><i class="key-masker-level"></i> Masker level</span></span><span id="dataCount">0 saved measurements</span></div>
+            </section>
+
+            <section class="measurements panel">
+              <div class="measurements__heading"><div><p class="kicker">SAVED LOCALLY</p><h2>Measurements</h2></div><div class="table-actions"><button id="exportPdf" class="export-button" type="button" title="Open the print dialog, then choose Save as PDF">Export PDF</button><button id="exportJpeg" class="export-button" type="button">Export JPEG</button></div></div>
+              <div id="measurementTable" class="table-wrap"><div class="table-empty">Finished runs are saved in this browser. Export a visual report with the graph and measurements.</div></div>
+            </section>
+
+            <details class="interpretation panel">
+              <summary><span><p class="kicker">THE IDEA</p><strong>What should I look for?</strong></span><span class="summary-plus">+</span></summary>
+              <div class="interpretation__body"><p>Masking is usually strongest near the masker and falls as probe frequency moves away. The pattern may be asymmetric: for a tone masker, masking can spread farther toward higher frequencies. Compare curve widths at 500, 1,000, 2,000, and 4,000 Hz as a qualitative view of auditory filtering and critical-band behavior.</p><p>These are your detection thresholds, not calibrated sound-pressure levels. Room noise, headphones, fit, attention, and the 2AFC staircase all affect the result. Add a no-mask baseline at matching probe frequencies to estimate masking amount.</p></div>
+            </details>
+          </section>
+        </div>
+
+        <footer><span>FREQUENCY MASKING LAB <i>·</i> EXPERIMENTAL TOOL</span><span>Audio remains on your device. Measurements are stored in this browser.</span></footer>
+      </main>
+      <aside class="live-curve panel" aria-label="Live masking curve preview">
+        <div class="live-curve__heading">
+          <div><p class="kicker">LIVE VIEW / STAIRCASE</p><h2>Live masking curve</h2></div>
+          <div class="live-curve__tools"><span id="liveCurveState" class="live-state"><i></i>READY</span><button id="liveCurveToggle" class="live-curve__toggle" type="button" aria-controls="liveCurveContent" aria-expanded="true" aria-label="Close live masking curve" title="Close live masking curve">−</button></div>
+        </div>
+        <div id="liveCurveContent" class="live-curve__content">
+          <div class="live-curve__summary"><span id="liveCurveCondition">Complete measurements appear here</span><strong id="liveCurveLevel" aria-live="polite">—</strong></div>
+          <div class="live-curve__axis-label"><span>Threshold · dBFS</span><span>Probe frequency · log</span></div>
+          <div class="live-curve__plot"><svg id="liveMaskingChart" viewBox="0 0 360 210" role="img" aria-label="Live masking curve preview"></svg></div>
+          <div class="live-curve__foot"><span><i class="live-key-line"></i>Saved threshold</span><span><i class="live-key-point"></i>Current probe level</span><span><i class="live-key-masker-level"></i>Masker level</span></div>
+          <p id="liveCurveHint" class="live-curve__hint">The selected probe’s live point moves as the staircase adapts.</p>
+        </div>
+      </aside>
+    </div>
+    <section id="exportReport" class="export-report" aria-hidden="true"></section>
+    <script src="app.js"></script>
+  </body>
+</html>
